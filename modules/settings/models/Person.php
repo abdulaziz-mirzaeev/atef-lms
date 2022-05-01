@@ -20,7 +20,10 @@ use yii\db\ActiveRecord;
  * @property string|null $created_at
  * @property string|null $updated_at
  * @property array $genders
+ *
  * @property string $fullName
+ * @property string $firstLastName
+ * @property string $genderFullText
  */
 class Person extends ActiveRecord
 {
@@ -102,5 +105,15 @@ class Person extends ActiveRecord
     public function getFullName()
     {
         return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+    }
+
+    public function getFirstLastName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function getGenderFullText()
+    {
+        return $this->genders[$this->gender];
     }
 }

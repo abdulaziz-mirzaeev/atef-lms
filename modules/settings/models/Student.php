@@ -12,6 +12,9 @@ use yii\db\ActiveRecord;
  * @property int $person_id
  * @property int|null $grade_id
  * @property int|null $group_id
+ *
+ * @property Person $person
+ *
  */
 class Student extends ActiveRecord
 {

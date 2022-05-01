@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\settings\models\Student */
 
-$this->title = $model->id;
+$this->title = $model->id . ' - ' . $model->person->firstLastName;
 $this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['/settings']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Students'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,14 +27,27 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?php echo DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'person_id',
-            'grade_id',
-            'group_id',
-        ],
-    ]) ?>
+    <div class="row">
+        <div class="col-lg-6">
+            <?php echo DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'person_id',
+                    'person.first_name',
+                    'person.last_name',
+                    'person.middle_name',
+                    [
+                        'attribute' => 'person.gender',
+                        'value' => ''
+                    ],
+                    'person.birthday:date',
+                    'person.email:email',
+                    'grade_id',
+                    'group_id',
+                ],
+            ]) ?>
+        </div>
+    </div>
 
 </div>
