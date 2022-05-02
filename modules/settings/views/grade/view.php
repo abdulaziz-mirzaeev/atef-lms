@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\modules\settings\models\Grade */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['/settings']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Grades'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

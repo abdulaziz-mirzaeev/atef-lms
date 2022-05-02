@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\settings\models\Group */
 
-$this->title = $model->id;
+$this->title = $model->grade->name . '/' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['/settings']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,13 +27,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?php echo DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'grade_id',
-            'number',
-        ],
-    ]) ?>
+    <div class="col-lg-6">
+        <?php echo DetailView::widget([
+            'model'      => $model,
+            'attributes' => [
+                'id',
+                'number',
+                'grade_id',
+                [
+                    'attribute' => 'grade.name',
+                    'label' => 'Grade Name'
+                ],
+            ],
+        ]) ?></div>
+
 
 </div>

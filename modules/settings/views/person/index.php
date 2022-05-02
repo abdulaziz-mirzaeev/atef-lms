@@ -32,10 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'first_name',
             'last_name',
             'middle_name',
-            [
-                'attribute' => 'birthday',
-                'format' => ['date', 'php:Y-m-d']
-            ],
+            'birthday:date',
             [
                 'attribute' => 'gender',
                 'format' => function ($value) {

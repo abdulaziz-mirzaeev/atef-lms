@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\modules\settings\models\Grade */
 
 $this->title = Yii::t('app', 'Create Grade');
+$this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['/settings']];
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Grades'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

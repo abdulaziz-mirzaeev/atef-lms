@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property int|null $group_id
  *
  * @property Person $person
+ * @property Group $group
  *
  */
 class Student extends ActiveRecord
@@ -56,4 +57,10 @@ class Student extends ActiveRecord
     {
         return $this->hasOne(Person::class, ['id' => 'person_id']);
     }
+
+    public function getGroup()
+    {
+        return $this->hasOne(Group::class, ['id' => 'group_id']);
+    }
+
 }

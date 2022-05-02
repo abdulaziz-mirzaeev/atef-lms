@@ -39,10 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'person.middle_name',
                     [
                         'attribute' => 'person.gender',
-                        'value' => ''
+                        'value' => $model->person->genderFullText,
                     ],
                     'person.birthday:date',
                     'person.email:email',
+                    [
+                        'label' => 'Grade/Group',
+                        'value' => $model->group->fullName,
+                    ],
                     'grade_id',
                     'group_id',
                 ],

@@ -1,18 +1,29 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use app\modules\settings\models\Grade;
+use kartik\select2\Select2;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\settings\models\Group */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yii\bootstrap5\ActiveForm */
 ?>
 
 <div class="group-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php echo $form->field($model, 'grade_id')->textInput() ?>
+    <?php $grades = ArrayHelper::map(Grade::find()->asArray()->all(), 'id', 'name'); ?>
+    <?php echo $form->field($model, 'grade_id')->widget(Select2::class, [
+        'data' => $grades,
+        'options' => ['placeholder' => 'Select a grade...'],
+        'size' => 'md',
+        'pluginOptions' => [
+            'allowClear' => true,
+        ]
+    ]) ?>
 
     <?php echo $form->field($model, 'number')->textInput() ?>
 

@@ -1,6 +1,7 @@
 <?php
 
 use app\modules\settings\SettingsModule;
+use kartik\grid\GridView;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -58,6 +59,9 @@ $config = [
     'modules' => [
         'settings' => [
             'class' => SettingsModule::class,
+        ],
+        'gridview' => [
+            'class' => 'kartik\grid\Module',
         ]
     ],
 

@@ -4,9 +4,12 @@ namespace app\modules\settings\controllers;
 
 use app\modules\settings\models\Group;
 use app\modules\settings\models\GroupSearch;
+use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * GroupController implements the CRUD actions for Group model.
@@ -114,6 +117,28 @@ class GroupController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionGroupsByGrade()
+    {
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $parents = $this->request->post('depdrop_parents');
+        if ($parents) {
+            $grade_id = $parents[0];
+
+            $groups = Group::findAll(['grade_id' => $grade_id]);
+
+            $output = array_map(function (Group $item) {
+                return ['id' => $item->id, 'name' => $item->number];
+            }, $groups);
+
+            $this->response->setStatusCode(200);
+            return ['output' => $output, 'selected' => ''];
+        }
+
+        $this->response->setStatusCode(200);
+        return ['output' => [], 'selected' => ''];
     }
 
     /**

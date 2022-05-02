@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\settings\models\Grade;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,6 +10,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\modules\settings\models\GradeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
+$this->params['breadcrumbs'][] = ['label' => 'Settings', 'url' => ['/settings']];
 $this->title = Yii::t('app', 'Grades');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -26,8 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
             [

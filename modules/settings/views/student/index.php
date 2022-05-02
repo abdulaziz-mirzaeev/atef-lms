@@ -1,10 +1,12 @@
 <?php
 
+use app\modules\settings\models\Person;
 use app\modules\settings\models\Student;
+use kartik\export\ExportMenu;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\settings\models\StudentSearch */
@@ -24,25 +26,56 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php echo GridView::widget([
+    <?php $columns = [
+        [
+            'attribute' => 'id',
+            'width' => '130px',
+        ],
+        [
+            'label'     => 'Name',
+            'attribute' => 'person_id',
+            'value'     => function (Student $model) {
+                $url = Url::to(['person/view', 'id' => $model->id]);
+                return "<a href=\"{$url}\">{$model->person->firstLastName}</a>";
+            },
+            'format'    => 'html',
+        ],
+        'person.birthday:date',
+        [
+            'attribute' => 'person.gender',
+            'value'     => 'person.genderFullText',
+            'filter'    => [Person::GENDER_FEMALE => 'Female', Person::GENDER_MALE => 'Male']
+        ],
+        'person.email:email',
+        [
+            'label' => 'Grade/Group',
+            'value' => 'group.fullName',
+        ],
+        [
+            'class'      => ActionColumn::class,
+            'urlCreator' => function ($action, Student $model, $key, $index, $column) {
+                return Url::toRoute([$action, 'id' => $model->id]);
+            }
+        ],
+    ]; ?>
+
+    <?php echo ExportMenu::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => $columns,
+        'dropdownOptions' => [
+            'label' => 'Export All',
+            'class' => 'btn btn-outline-secondary btn-default'
+        ],
+        'filename' => 'students-' . date('Y-m-d'),
+    ]); ?>
+
+    <hr>
+
+    <?php
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => [
-            'id',
-            [
-                'label' => 'Name',
-                'attribute' => 'person_id',
-                'value' => 'person.firstLastName',
-            ],
-            'grade_id',
-            'group_id',
-            [
-                'class' => ActionColumn::class,
-                'urlCreator' => function ($action, Student $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
+        'columns' => $columns,
     ]); ?>
 
 

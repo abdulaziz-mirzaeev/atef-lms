@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\settings\models\Group;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -27,10 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'grade_id',
+            [
+                'attribute' => 'grade.name',
+                'label' => 'Grade'
+            ],
             'number',
             [
                 'class' => ActionColumn::className(),

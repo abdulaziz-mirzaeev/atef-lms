@@ -114,6 +114,6 @@ class Person extends ActiveRecord
 
     public function getGenderFullText()
     {
-        return $this->genders[$this->gender];
+        return self::$genders[$this->gender];
     }
 }
